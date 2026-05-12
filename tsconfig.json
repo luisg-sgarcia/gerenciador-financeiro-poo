@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    /* 1. Alvo e Compatibilidade */
+    "target": "ES2020",                                  /* Equilíbrio entre modernidade e compatibilidade */
+    "module": "CommonJS",                                /* Padrão mais estável para Node.js atual */
+    "lib": ["ES2020"],                                   /* Bibliotecas de tipos disponíveis no ambiente */
+
+    /* 2. Organização de Arquivos */
+    "outDir": "./dist",                                  /* Onde o JS traduzido vai morar */
+    "rootDir": "./src",                                  /* Onde seu código TS está guardado */
+    "removeComments": true,                              /* Limpa o código final para entrega */
+
+    /* 3. Rigor e Qualidade (O que o professor avalia) */
+    "strict": true,                                      /* Ativa todas as checagens de segurança */
+    "noImplicitAny": true,                               /* Te obriga a tipar tudo (evita o any preguiçoso) */
+    "strictNullChecks": true,                            /* Evita o erro "null is not an object" */
+    "noUnusedLocals": true,                              /* Avisa se você criar variáveis e não usar */
+    "noUnusedParameters": true,                          /* Avisa se um parâmetro de função está sobrando */
+
+    /* 4. Módulos e Integração */
+    "moduleResolution": "node",                          /* Como o TS busca os arquivos importados */
+    "esModuleInterop": true,                             /* Facilita importar libs como Express ou Moment */
+    "skipLibCheck": true,                                /* Acelera a compilação pulando checagem de bibliotecas externas */
+    "forceConsistentCasingInFileNames": true,            /* Evita problemas entre Windows (case-insensitive) e Linux */
+
+    /* 5. Recursos Avançados (Útil para Injeção de Dependência) */
+    "experimentalDecorators": true,                      /* Caso decida usar bibliotecas de injeção como Inversify */
+    "emitDecoratorMetadata": true                        /* Necessário para refletir tipos em tempo de execução */
+  },
+  "include": ["src/**/*"],                               /* Inclui tudo que está na pasta src */
+  "exclude": ["node_modules", "**/*.spec.ts"]            /* Ignora pastas de bibliotecas e testes */
+}
