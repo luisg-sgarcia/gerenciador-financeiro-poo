@@ -1,25 +1,31 @@
-export default class Transaction {
+import { TransactionType } from "../enums/TransactionType";
+export default abstract class Transaction {
+  
+  constructor(
+    protected descricao: string,
+    protected valor: number,
+    protected tipo: TransactionType,
+  ) {}
 
-    constructor(
-        private descricao: string,
-        private valor: number
-    ){}
+  public getDescricao(): string {
+    return this.descricao;
+  }
 
-    public getDescricao(): string {
-        return this.descricao;
-    }
+  public getValor(): number {
+    return this.valor;
+  }
 
-    public setDescricao(descricao: string): void {
-        this.descricao = descricao;
-    }
+  public getTipo(): TransactionType {
+    return this.tipo;
+  }
 
-    public getValor(): number {
-        return this.valor;
-    }
+  public setDescricao(descricao: string): void {
+    this.descricao = descricao;
+  }
 
-    public setValor(valor: number): void {
-        this.valor = valor;
-    }
+  public setValor(valor: number): void {
+    this.valor = valor;
+  }
 
-    
+  public abstract calcularImpacto(): number;
 }

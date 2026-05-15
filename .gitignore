@@ -1,26 +1,37 @@
-# Dependências do Node (Pasta gigante que não deve ir ao Git)
+# Dependências
 node_modules/
 
-# Pasta de build (Código compilado gerado pelo npx tsc)
+# Build
 dist/
 out/
 
-# Logs de erro do NPM
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
-# Variáveis de ambiente e segredos (Senhas, chaves de API)
+# Variáveis de ambiente
 .env
 .env.local
 
-# Arquivos temporários do Sistema Operacional
+# Arquivos do sistema operacional
 .DS_Store
 Thumbs.db
 
-# Configurações de IDEs (VS Code ou WebStorm)
+# IDEs e editores
 .vscode/
 .idea/
 
-# Arquivos de log e cache do TypeScript
+# Cache TypeScript
 *.tsbuildinfo
+
+# Cobertura de testes
+coverage/
+
+# Arquivos temporários
+tmp/
+temp/
+
+# Logs gerais
+*.log
