@@ -15,14 +15,13 @@ export default class ConsoleView {
 
       console.log(
         chalk.blue(`
-        === GERENCIADOR FINANCEIRO ===
-
-        1 - Adicionar Receita
-        2 - Adicionar Despesa
-        3 - Listar Transações
-        4 - Ver Saldo
-        0 - Sair`),
-      );
+=== GERENCIADOR FINANCEIRO ===
+1 - Adicionar Receita
+2 - Adicionar Despesa
+3 - Listar Transações
+4 - Ver Saldo
+0 - Sair`),
+        );
 
       opcao = Number(prompt("Escolha: "));
 

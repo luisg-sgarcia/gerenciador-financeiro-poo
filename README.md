@@ -1,61 +1,170 @@
-# 💰 Gerenciador Financeiro Pessoal (MVC)
+💰 Gerenciador Financeiro Pessoal (MVC)
 
-Este projeto é um sistema de controle de finanças (entradas e saídas) desenvolvido como avaliação para a disciplina de **Programação Orientada a Objetos (POO)**. O foco principal é a aplicação prática de padrões de arquitetura e princípios de código limpo.
+Sistema de gerenciamento financeiro desenvolvido em TypeScript utilizando conceitos de Programação Orientada a Objetos (POO) e arquitetura MVC.
 
----
+O projeto foi criado como atividade acadêmica para praticar conceitos fundamentais de desenvolvimento backend e organização de software.
 
-## 🏗️ Arquitetura do Sistema
+📚 Conceitos Utilizados
 
-O projeto utiliza o padrão **MVC (Model-View-Controller)** para separar as responsabilidades e facilitar a manutenção:
+Este projeto aplica diversos conceitos importantes de desenvolvimento orientado a objetos:
 
-*   **Model**: Representa as entidades de dados (`Transacao`, `Entrada`, `Saida`) e as regras de negócio de saldo.
-*   **View**: Camada de interação com o usuário via terminal (CLI).
-*   **Controller**: Age como mediador, recebendo comandos da View e processando os dados através do Repositório.
+✅ MVC (Model View Controller)
 
----
+✅ Encapsulamento
 
-## 🛠️ Conceitos de POO Aplicados
+✅ Herança
 
-Para atender aos requisitos acadêmicos e garantir um código profissional, foram utilizados:
+✅ Polimorfismo
 
-*   **Classes Abstratas**: A classe base `Transacao` é abstrata, garantindo que nenhuma transação seja criada sem ser especificamente uma Entrada ou Saída.
-*   **Interfaces**: Definem o contrato `IRepositorio`, garantindo que o Controller não dependa de uma implementação específica de banco de dados.
-*   **Injeção de Dependência**: O banco de dados é instanciado no `main.ts` e injetado no Controller, promovendo o desacoplamento.
-*   **Enums**: Utilizados para categorizar tipos de movimentação de forma tipada e segura.
-*   **Sobrecarga e Sobrescrita**:
-    *   **Sobrescrita**: Métodos de cálculo de valor real especializados em cada classe filha.
-    *   **Sobrecarga**: Métodos de busca flexíveis no Controller.
-*   **Encapsulamento**: Uso de modificadores de acesso (`private`, `protected` e `public`) para proteger a integridade dos dados.
+✅ Classe Abstrata
 
----
+✅ Interfaces
 
-## 📂 Estrutura de Pastas
+✅ Sobrescrita (Override)
 
-```text
+✅ Sobrecarga (Overload)
+
+✅ Injeção de Dependência
+
+✅ Enum
+
+✅ Tratamento de Erros
+
+✅ TypeScript Strict Mode
+
+🏗️ Arquitetura do Projeto
+
 src/
- ├── controller/   # Lógica de controle e coordenação
- ├── database/     # Repositório e persistência de dados
- ├── interfaces/   # Contratos e Interfaces do sistema
- ├── model/        # Entidades, Classes Abstratas e Enums
- ├── view/         # Interface de linha de comando
- └── main.ts       # Inicialização e Injeção de Dependências
+│
+├── controller/
+│   └── TransactionController.ts
+│
+├── database/
+│   └── Database.ts
+│
+├── enums/
+│   └── TransactionType.ts
+│
+├── interfaces/
+│   └── IRepository.ts
+│
+├── model/
+│   ├── Transaction.ts
+│   ├── Receita.ts
+│   └── Despesa.ts
+│
+├── services/
+│   └── TransactionService.ts
+│
+├── view/
+│   └── ConsoleView.ts
+│
+└── main.ts
 
----
+⚙️ Tecnologias Utilizadas
 
-## 👨‍🏫 Instruções para execução
+TypeScript
 
-### 1. Instalar as dependências
-Necessário para baixar o compilador TypeScript e os tipos do Node.js:
+Node.js
 
-```bash
+prompt-sync
+
+chalk
+
+🖥️ Funcionalidades
+
+✅ Adicionar receitas
+
+✅ Adicionar despesas
+
+✅ Listar transações
+
+✅ Visualizar saldo atual
+
+✅ Validação de saldo insuficiente
+
+✅ Interface interativa no terminal
+
+✅ Tratamento de erros
+
+📌 Exemplo do Sistema
+
+=== TRANSAÇÕES ===
+
+ID   DESCRIÇÃO          VALOR          TIPO
+--------------------------------------------------
+1    Salário            R$ 3500.00     RECEITA
+2    Mercado            R$ 800.00      DESPESA
+3    Aluguel            R$ 1200.00     DESPESA
+
+📦 Instalação
+
+Clone o repositório:
+
+git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
+
+Entre na pasta do projeto:
+
+cd SEU-REPOSITORIO
+
+Instale as dependências:
+
 npm install
 
-### 2. Execução
+▶️ Executando o Projeto
 
-```bash
-npx tsc
+Executar em modo desenvolvimento
 
----
+Linux / Mac
 
-```bash
-node dist/main.js
+npm run dev
+
+Windows (CMD ou PowerShell)
+
+npm run dev
+
+🏗️ Compilar o Projeto
+
+npm run build
+
+O JavaScript compilado será gerado na pasta:
+
+dist/
+
+▶️ Executar Projeto Compilado
+
+Linux / Mac
+
+npm start
+
+Windows (CMD ou PowerShell)
+
+npm start
+
+📜 Scripts Disponíveis
+
+"scripts": {
+  "dev": "ts-node src/main.ts",
+  "build": "tsc",
+  "start": "node dist/main.js"
+}
+
+📖 Objetivo do Projeto
+
+O principal objetivo deste projeto é praticar:
+
+Organização de software
+
+Arquitetura MVC
+
+Conceitos de POO
+
+Estruturação de projetos TypeScript
+
+Boas práticas de programação
+
+Separação de responsabilidades
+
+👨‍💻 Autor
+
+Luis Gustavo Soares Garcia
