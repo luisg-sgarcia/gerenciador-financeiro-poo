@@ -37,4 +37,8 @@ export default class TransactionService {
       .listarTodos()
       .reduce((total, item) => total + item.calcularImpacto(), 0);
   }
+
+  public buscar(termo: string): any {
+    return this.database.buscar(termo);
+  }
 }

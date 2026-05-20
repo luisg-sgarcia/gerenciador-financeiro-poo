@@ -16,4 +16,8 @@ export default class TransactionController {
   public saldo(): number {
     return this.service.calcularSaldo();
   }
+
+  public buscar(termo: string): any {
+    return this.service.buscar(termo);
+  }
 }

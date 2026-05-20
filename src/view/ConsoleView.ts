@@ -20,6 +20,7 @@ export default class ConsoleView {
 2 - Adicionar Despesa
 3 - Listar Transações
 4 - Ver Saldo
+5 - Buscar Transacão
 0 - Sair`),
         );
 
@@ -40,6 +41,10 @@ export default class ConsoleView {
 
         case 4:
           this.mostrarSaldo();
+          break;
+
+        case 5:
+          this.buscarTransacao();
           break;
 
         case 0:
@@ -116,5 +121,31 @@ export default class ConsoleView {
     const saldo = this.controller.saldo().toFixed(2);
 
     console.log(chalk.yellow(`Saldo Atual: R$ ${saldo}`));
+  }
+
+  private buscarTransacao(): void {
+    const termo = prompt("Descrição para buscar: ");
+    
+    const resultados = this.controller.buscar(termo);
+
+    if (resultados.length === 0) {
+      console.log(chalk.yellow("Nenhuma transação encontrada com esse termo."));
+      return;
+    }
+
+    console.log(chalk.cyan("\n=== RESULTADO DA BUSCA ==="));
+    console.log(
+      "ID".padEnd(5) + "DESCRIÇÃO".padEnd(20) + "VALOR".padEnd(15) + "TIPO"
+    );
+    console.log("-".repeat(50));
+
+    resultados.forEach((item: any, index: number) => {
+      console.log(
+        String(index + 1).padEnd(5) +
+        item.getDescricao().padEnd(20) +
+        "R$ " + (item.getValor().toFixed(2)).padEnd(11) +
+        item.getTipo()
+      );
+    });
   }
 }
