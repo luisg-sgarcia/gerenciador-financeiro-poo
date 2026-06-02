@@ -1,6 +1,6 @@
 import { TransactionType } from "../enums/TransactionType";
 export default abstract class Transaction {
-  
+
   constructor(
     protected descricao: string,
     protected valor: number,
@@ -28,4 +28,5 @@ export default abstract class Transaction {
   }
 
   public abstract calcularImpacto(): number;
+
 }
