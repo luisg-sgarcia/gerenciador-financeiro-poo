@@ -10,4 +10,4 @@ const view = new ConsoleView(controller);
 
 console.log("\n".repeat(100));
 
-view.iniciar();
+view.start();

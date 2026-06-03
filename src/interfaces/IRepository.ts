@@ -1,5 +1,5 @@
 export default interface IRepository<T> {
-  salvar(item: T): void;
+  save(item: T): void;
 
-  listarTodos(): T[];
+  getAll(): T[];
 }

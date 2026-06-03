@@ -1,14 +1,14 @@
 import promptSync from "prompt-sync";
 import chalk from "chalk";
-import Receita from "../model/Receita";
-import Despesa from "../model/Despesa";
+import Inflow from "../model/Inflow";
+import Outflow from "../model/Outflow";
 import TransactionController from "../controller/TransactionController";
 const prompt = promptSync();
 export default class ConsoleView {
   constructor(private controller: TransactionController) {}
 
-  public iniciar(): void {
-    let opcao: number;
+  public start(): void {
+    let option: number;
 
     do {
       console.clear();
@@ -24,27 +24,27 @@ export default class ConsoleView {
 0 - Sair`),
         );
 
-      opcao = Number(prompt("Escolha: "));
+      option = Number(prompt("Escolha: "));
 
-      switch (opcao) {
+      switch (option) {
         case 1:
-          this.adicionarReceita();
+          this.addInflow();
           break;
 
         case 2:
-          this.adicionarDespesa();
+          this.addOutflow();
           break;
 
         case 3:
-          this.listar();
+          this.list();
           break;
 
         case 4:
-          this.mostrarSaldo();
+          this.showBalance();
           break;
 
         case 5:
-          this.buscarTransacao();
+          this.searchTransaction();
           break;
 
         case 0:
@@ -56,18 +56,22 @@ export default class ConsoleView {
       }
 
       prompt("\nPressione ENTER...");
-    } while (opcao !== 0);
+    } while (option !== 0);
   }
 
-  private adicionarReceita(): void {
+  private addInflow(): void {
     try {
-      const descricao = prompt("Descrição: ");
+      const description = prompt("Descrição: ");
+      const rawAmount = prompt("Valor: ");
 
-      const valor = Number(prompt("Valor: ").replace(",", "."));
+      if (!rawAmount.trim() || isNaN(Number(rawAmount.replace(",", ".")))){
+        throw new Error("O valor inserido deve ser um número valido!");
+      }
 
-      const receita = new Receita(descricao, valor);
+      const amount = Number(rawAmount.replace(",", "."));
+      const inflow = new Inflow(description, amount);
 
-      this.controller.cadastrar(receita);
+      this.controller.addTransaction(inflow);
 
       console.log(chalk.green("Receita cadastrada!"));
     } catch (error: any) {
@@ -75,15 +79,19 @@ export default class ConsoleView {
     }
   }
 
-  private adicionarDespesa(): void {
+  private addOutflow(): void {
     try {
-      const descricao = prompt("Descrição: ");
+      const description = prompt("Descrição: ");
+      const rawAmount = prompt("Valor: ");
 
-      const valor = Number(prompt("Valor: ").replace(",", "."));
+      if (!rawAmount.trim() || isNaN(Number(rawAmount.replace(",", ".")))){
+        throw new Error("O valor inserido deve ser um número valido!");
+      }
 
-      const despesa = new Despesa(descricao, valor);
+      const amount = Number(rawAmount.replace(",", "."))      
+      const outflow = new Outflow(description, amount);
 
-      this.controller.cadastrar(despesa);
+      this.controller.addTransaction(outflow);
 
       console.log(chalk.green("Despesa cadastrada!"));
     } catch (error: any) {
@@ -91,12 +99,12 @@ export default class ConsoleView {
     }
   }
 
-  private listar(): void {
-    const transacoes = this.controller.listar();
+  private list(): void {
+    const transactions = this.controller.list();
 
     console.log(chalk.cyan("\n=== TRANSAÇÕES ===\n"));
 
-    if (transacoes.length === 0) {
+    if (transactions.length === 0) {
       console.log(chalk.red("Nenhuma transação cadastrada."));
 
       return;
@@ -108,27 +116,27 @@ export default class ConsoleView {
 
     console.log("-".repeat(50));
 
-    transacoes.forEach((item, index) => {
+    transactions.forEach((item, index) => {
       console.log(
         String(index + 1).padEnd(5) +
-          item.getDescricao().padEnd(20) +
-          `R$ ${item.getValor().toFixed(2)}`.padEnd(15) +
-          item.getTipo(),
+          item.getDescription().padEnd(20) +
+          `R$ ${item.getAmount().toFixed(2)}`.padEnd(15) +
+          item.getType(),
       );
     });
   }
-  private mostrarSaldo(): void {
-    const saldo = this.controller.saldo().toFixed(2);
+  private showBalance(): void {
+    const balance = this.controller.showBalance().toFixed(2);
 
-    console.log(chalk.yellow(`Saldo Atual: R$ ${saldo}`));
+    console.log(chalk.yellow(`Saldo Atual: R$ ${balance}`));
   }
 
-  private buscarTransacao(): void {
-    const termo = prompt("Descrição para buscar: ");
+  private searchTransaction(): void {
+    const term = prompt("Descrição para buscar: ");
     
-    const resultados = this.controller.buscar(termo);
+    const results = this.controller.search(term);
 
-    if (resultados.length === 0) {
+    if (results.length === 0) {
       console.log(chalk.yellow("Nenhuma transação encontrada com esse termo."));
       return;
     }
@@ -139,12 +147,12 @@ export default class ConsoleView {
     );
     console.log("-".repeat(50));
 
-    resultados.forEach((item: any, index: number) => {
+    results.forEach((item: any, index: number) => {
       console.log(
         String(index + 1).padEnd(5) +
-        item.getDescricao().padEnd(20) +
-        "R$ " + (item.getValor().toFixed(2)).padEnd(11) +
-        item.getTipo()
+        item.getDescription().padEnd(20) +
+        "R$ " + (item.getAmount().toFixed(2)).padEnd(11) +
+        item.getType()
       );
     });
   }

@@ -1,5 +1,5 @@
 export enum TransactionType {
-  RECEITA = "RECEITA",
+  INFLOW = "INFLOW",
 
-  DESPESA = "DESPESA",
+  OUTFLOW = "OUTFLOW",
 }

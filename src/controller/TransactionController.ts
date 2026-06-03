@@ -5,19 +5,19 @@ export default class TransactionController {
   
   constructor(private service: TransactionService) {}
 
-  public cadastrar(transaction: Transaction): void {
-    this.service.adicionar(transaction);
+  public addTransaction(transaction: Transaction): void {
+    this.service.addTransaction(transaction);
   }
 
-  public listar(): Transaction[] {
-    return this.service.listar();
+  public list(): Transaction[] {
+    return this.service.getAll();
   }
 
-  public saldo(): number {
-    return this.service.calcularSaldo();
+  public showBalance(): number {
+    return this.service.calculateBalance();
   }
 
-  public buscar(termo: string): any {
-    return this.service.buscar(termo);
+  public search(term: string): any {
+    return this.service.search(term);
   }
 }

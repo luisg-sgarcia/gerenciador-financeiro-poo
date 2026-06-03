@@ -6,39 +6,43 @@ export default class TransactionService {
 
   constructor(private database: Database) {}
 
-  public adicionar(transaction: Transaction): void {
-    if (transaction.getValor() <= 0) {
-      throw new Error("Valor inválido");
+  public addTransaction(transaction: Transaction): void {
+    if (isNaN(transaction.getAmount())){
+      throw new Error("Apenas números são validos!");
     }
 
-    if (transaction.getDescricao().length < 3) {
+    if (transaction.getAmount() <= 0) {
+      throw new Error("Valores negativos não são validos!");
+    }
+
+    if (transaction.getDescription().length < 3) {
       throw new Error("Descrição inválida");
     }
 
     // VERIFICAÇÃO DE SALDO
 
-    if (transaction.getTipo() === TransactionType.DESPESA) {
-      const saldoAtual = this.calcularSaldo();
+    if (transaction.getType() === TransactionType.OUTFLOW) {
+      const saldoAtual = this.calculateBalance();
 
-      if (transaction.getValor() > saldoAtual) {
+      if (transaction.getAmount() > saldoAtual) {
         throw new Error("Saldo insuficiente");
       }
     }
 
-    this.database.salvar(transaction);
+    this.database.save(transaction);
   }
 
-  public listar(): Transaction[] {
-    return this.database.listarTodos();
+  public getAll(): Transaction[] {
+    return this.database.getAll();
   }
 
-  public calcularSaldo(): number {
+  public calculateBalance(): number {
     return this.database
-      .listarTodos()
-      .reduce((total, item) => total + item.calcularImpacto(), 0);
+      .getAll()
+      .reduce((total, item) => total + item.calculateImpact(), 0);
   }
 
-  public buscar(termo: string): any {
-    return this.database.buscar(termo);
+  public search(termo: string): any {
+    return this.database.search(termo);
   }
 }

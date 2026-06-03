@@ -4,25 +4,25 @@ import Transaction from "../model/Transaction";
 export default class Database implements IRepository<Transaction> {
   private transactions: Transaction[] = [];
 
-  public salvar(item: Transaction): void {
+  public save(item: Transaction): void {
     this.transactions.push(item);
   }
 
-  public listarTodos(): Transaction[] {
+  public getAll(): Transaction[] {
     return this.transactions;
   }
 
-  public buscar(indice: number): Transaction | undefined;
+  public search(indice: number): Transaction | undefined;
 
-  public buscar(descricao: string): Transaction[];
+  public search(descricao: string): Transaction[];
 
-  public buscar(valor: any): any {
+  public search(valor: any): any {
     if (typeof valor === "number") {
       return this.transactions[valor];
     }
 
     return this.transactions.filter((item) =>
-      item.getDescricao().toLowerCase().includes(valor.toLowerCase()),
+      item.getDescription().toLowerCase().includes(valor.toLowerCase()),
     );
   }
 }
