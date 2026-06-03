@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals';
-import TransactionService from "./TransactionService";
+import TransactionService from "../service/TransactionService";
 import Database from "../database/Database";
 import Inflow from "../model/Inflow";
 import Outflow from "../model/Outflow";

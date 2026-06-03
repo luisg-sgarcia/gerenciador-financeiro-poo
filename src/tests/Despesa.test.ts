@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals';
-import Outflow from "./Outflow";
+import Outflow from "../model/Outflow";
 import { TransactionType } from "../enums/TransactionType";
 
 test("deve criar uma despesa com o tipo correto", () => {
