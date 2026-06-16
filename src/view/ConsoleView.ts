@@ -131,10 +131,23 @@ export default class ConsoleView {
     console.log(chalk.yellow(`Saldo Atual: R$ ${balance}`));
   }
 
-  private searchTransaction(): void {
+private searchTransaction(): void {
     const term = prompt("Descrição para buscar: ");
     
-    const results = this.controller.search(term);
+    if (!term.trim()) {
+      console.log(chalk.yellow("O termo de busca não pode estar vazio."));
+      return;
+    }
+
+    let searchParam: any = term;
+
+    const parsedNumber = Number(term.replace(",", "."));
+
+    if (!isNaN(parsedNumber)) {
+      searchParam = parsedNumber;
+    }
+
+    const results = this.controller.search(searchParam);
 
     if (results.length === 0) {
       console.log(chalk.yellow("Nenhuma transação encontrada com esse termo."));

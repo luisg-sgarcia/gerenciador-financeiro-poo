@@ -12,17 +12,22 @@ export default class Database implements IRepository<Transaction> {
     return this.transactions;
   }
 
-  public search(indice: number): Transaction | undefined;
+  public search(description: string): Transaction[];
+  public search(value: number): Transaction[];
 
-  public search(descricao: string): Transaction[];
-
-  public search(valor: any): any {
-    if (typeof valor === "number") {
-      return this.transactions[valor];
+  public search(value: any): Transaction[] {
+    if (typeof value === "number") {
+      return this.transactions.filter(
+        (transaction) => transaction.getAmount() === value
+      );
     }
 
-    return this.transactions.filter((item) =>
-      item.getDescription().toLowerCase().includes(valor.toLowerCase()),
+    const term = String(value).trim().toLowerCase();
+    if (!term) return [];
+
+    return this.transactions.filter((transaction) =>
+      transaction.getDescription().toLowerCase().includes(term)
     );
   }
+
 }

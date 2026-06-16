@@ -10,7 +10,7 @@ export default class TransactionController {
   }
 
   public list(): Transaction[] {
-    return this.service.getAll();
+    return this.service.getAll().sort((a, b) => b.getAmount() - a.getAmount());
   }
 
   public showBalance(): number {
@@ -20,4 +20,6 @@ export default class TransactionController {
   public search(term: string): any {
     return this.service.search(term);
   }
+
+
 }

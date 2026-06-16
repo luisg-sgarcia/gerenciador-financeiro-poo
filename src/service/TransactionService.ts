@@ -1,6 +1,9 @@
+// Caminho: src/service/TransactionService.ts
+
 import Database from "../database/Database";
 import Transaction from "../model/Transaction";
 import { TransactionType } from "../enums/TransactionType";
+import TransactionError from "../exceptions/TransactionError"; // Importação nova!
 
 export default class TransactionService {
 
@@ -8,24 +11,22 @@ export default class TransactionService {
 
   public addTransaction(transaction: Transaction): void {
     if (isNaN(transaction.getAmount())){
-      throw new Error("Apenas números são validos!");
+      throw new TransactionError("Apenas números são válidos!"); // Usando o erro personalizado
     }
 
     if (transaction.getAmount() <= 0) {
-      throw new Error("Valores negativos não são validos!");
+      throw new TransactionError("Valores negativos não são válidos!"); // Usando o erro personalizado
     }
 
     if (transaction.getDescription().length < 3) {
-      throw new Error("Descrição inválida");
+      throw new TransactionError("Descrição inválida"); // Usando o erro personalizado
     }
-
-    // VERIFICAÇÃO DE SALDO
 
     if (transaction.getType() === TransactionType.OUTFLOW) {
       const saldoAtual = this.calculateBalance();
 
       if (transaction.getAmount() > saldoAtual) {
-        throw new Error("Saldo insuficiente");
+        throw new TransactionError("Saldo insuficiente"); // Usando o erro personalizado
       }
     }
 
